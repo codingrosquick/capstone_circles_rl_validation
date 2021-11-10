@@ -24,9 +24,15 @@ SQL tables on CyVerse check if there is an application for this ?
 
 ### TODO
 
-1. finir l'analyse fichiers (trouver bons params, tester sur plein de fichiers, pbs de l'échantillonage, utiliser des)
+1. finir l'analyse fichiers (trouver bons params, tester sur plein de fichiers, pbs de l'échantillonage, utiliser des):
+   1. --- résoudre pb des samplings ---
+   2. --- graphical see the test effects ---
+   3. tester sur bcp de fichiers
+   4. pousser, diapo etc
+   5. cleaner code: modularize, verbose activation
 2. messages slack: questions et assumptions, pousser le github, et prévenir pour demain, diapo update (assumptions, results and visuals)
 3. regarder pour avoir du CSV: création fichier (tables) + remplissage + lecture, des entrées analysées
 4. API d'acces depuis le CSV
 5. File crawler avec toutes les locations des acquisitions
 6. tests de l'API avec un CSV généré propre et petit? (checker quelle lib de test?)
+7. travail sur les metadata à utiliser et storer? -> questions à poser ça
