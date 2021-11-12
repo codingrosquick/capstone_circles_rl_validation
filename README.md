@@ -34,7 +34,22 @@ SQL tables on CyVerse check if there is an application for this ?
    1. --- questions --- 
    2. slides
 3. regarder pour avoir du CSV: création fichier (tables) + remplissage + lecture, des entrées analysées
-4. API d'acces depuis le CSV
-5. File crawler avec toutes les locations des acquisitions
+   1. --- test -> OK ---
+   2. --- intégrer au code ---
+   3. --- travail sur les metadata à utiliser et storer depuis le filename ---
+4. File crawler avec toutes les locations des acquisitions
+   1. find all the places where there is useful acquisitions (cf links given)
+      -> gros fichier/dico avec ça? faire à la main?
+   2. gestion load delete d'un cache
+   3. DL depuis IRODS
+5. API d'acces depuis le CSV
 6. tests de l'API avec un CSV généré propre et petit? (checker quelle lib de test?)
-7. travail sur les metadata à utiliser et storer? -> questions à poser ça
+
+
+### code cleaning
+- passer tous les thresholds dans un crossing_analysis_parameter
+- corriger orthographe threshold
+- modularize
+- make it launchable--- commit on Git
+- document everything
+- type useful things
