@@ -38,12 +38,23 @@ SQL tables on CyVerse check if there is an application for this ?
    2. --- intégrer au code ---
    3. --- travail sur les metadata à utiliser et storer depuis le filename ---
 4. File crawler avec toutes les locations des acquisitions
-   1. find all the places where there is useful acquisitions (cf links given)
+   1. --- find all the places where there is useful acquisitions (cf links given) ---
       -> gros fichier/dico avec ça? faire à la main?
-   2. gestion load delete d'un cache
-   3. DL depuis IRODS
-5. API d'acces depuis le CSV
-6. tests de l'API avec un CSV généré propre et petit? (checker quelle lib de test?)
+   2. gestion load delete d'un cache 
+      -> tester si fonctionne proprement:
+      1. DL depuis IRODS
+         1. iinit pour initialiser: 2 cas (non prep, déjà prep) faire python qui réagit au bash
+         -> faire depuis un fichier texte
+         2. ils pour vérifier l'état du login
+         3. ligne de DL depuis un repertoire d'adresse
+         -> mettre dans le même fichier de configuration python
+5. Ajout à l'API
+   1. vérifier que fonctionne tout bien
+   2. ajout des metadata?
+6. API d'acces depuis le CSV
+   1. load the CSV
+   2. retrieve: which parameters?
+7. tests de l'API avec un CSV généré propre et petit? (checker quelle lib de test?)
 
 
 ### code cleaning
@@ -53,3 +64,4 @@ SQL tables on CyVerse check if there is an application for this ?
 - make it launchable--- commit on Git
 - document everything
 - type useful things
+- passer dans 1 seul script et appeller les fonctions de l'extérieur
