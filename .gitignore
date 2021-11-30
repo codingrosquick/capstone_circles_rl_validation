@@ -129,6 +129,7 @@ dmypy.json
 .pyre/
 
 # other local things
-/analyses/
 .DS_Store
 .idea/
+database_exploration/temp_cache
+database_exploration/results
