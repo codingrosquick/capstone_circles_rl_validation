@@ -1,0 +1,19 @@
+{
+  "verbose": true,
+  "exploration":
+    {
+      "remote_root": "/iplant/home/sprinkjm/publishable-circles/2T3W1RFVXKW033343/libpanda/2021_08_02",
+      "db_exploration_name": "example_small_exploration_vandertest"
+    },
+  "analysis":
+    {
+      "db_analysis_name": "example_small_analysis_car_crossings",
+      "car_crossing_parameters":
+        {
+          "enable": true,
+          "speed_threshold": 20,
+          "previous_distance_threshold": 50,
+          "next_distance_threshold": 40
+        }
+    }
+}

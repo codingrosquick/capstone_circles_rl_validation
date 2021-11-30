@@ -133,3 +133,4 @@ dmypy.json
 .idea/
 database_exploration/temp_cache
 database_exploration/results
+database_exploration/.ipynb_checkpoints
