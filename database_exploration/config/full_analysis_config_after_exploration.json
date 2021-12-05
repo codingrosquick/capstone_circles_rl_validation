@@ -2,7 +2,7 @@
   "verbose": true,
   "exploration":
     {
-        "use_previous_exploration": "github/capstone_circles_rl_validation/database_exploration/results/file_exploration&full_exploration_publishable_circles&create_on=2021-12-01_06:10:16.920970&root=_iplant_home_sprinkjm_publishable-circles.csv"
+        "use_previous_exploration": "./results_permanent/file_exploration&full_exploration_publishable_circles&create_on=2021-12-01_06:10:16.920970&root=_iplant_home_sprinkjm_publishable-circles.csv"
     },
   "analysis":
     {
