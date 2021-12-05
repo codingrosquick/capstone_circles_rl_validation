@@ -1,0 +1,19 @@
+{
+  "verbose": true,
+  "exploration":
+    {
+      "remote_root": "/iplant/home/sprinkjm/publishable-circles",
+      "db_exploration_name": "full_exploration_publishable_circles"
+    },
+  "analysis":
+    {
+      "db_analysis_name": "full_analysis_car_crossings",
+      "car_crossing_parameters":
+        {
+          "enable": true,
+          "speed_threshold": 20,
+          "previous_distance_threshold": 22,
+          "next_distance_threshold": 20
+        }
+    }
+}
