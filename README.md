@@ -1,51 +1,35 @@
 # capstone_circles_rl_validation
 
+## Useful links
+Trello board: https://trello.com/b/SAKirZem/todolist-capstone-rl-validation
 
-## Data exploration
+Miro drawing board: https://miro.com/app/board/o9J_lpOkcqc=/
 
-### TODO
+Github codebase: https://github.com/codingrosquick/capstone_circles_rl_validation
 
-1. finir l'analyse fichiers (trouver bons params, tester sur plein de fichiers, pbs de l'échantillonage, utiliser des):
-   1. --- résoudre pb des samplings ---
-   2. --- graphical see the test effects ---
-   3. --- tester sur bcp de fichiers ---
-   4. --- cleaner code ---
-   5. --- modularize, verbose activation? ---
-2. messages slack: questions et assumptions, pousser le github, et prévenir pour demain, diapo update (assumptions, results and visuals)
-   1. --- questions --- 
-   2. slides
-3. regarder pour avoir du CSV: création fichier (tables) + remplissage + lecture, des entrées analysées
-   1. --- test -> OK ---
-   2. --- intégrer au code ---
-   3. --- travail sur les metadata à utiliser et storer depuis le filename ---
-4. File crawler avec toutes les locations des acquisitions
-   1. --- find all the places where there is useful acquisitions (cf links given) ---
-   2. --- gestion load delete d'un cache --- 
-      -> tester si fonctionne proprement:
-      1. DL depuis IRODS
-         1. TODO? iinit pour initialiser: 2 cas (non prep, déjà prep) faire python qui réagit au bash
-         2. ils pour vérifier l'état du login
-         3. ligne de DL depuis un repertoire d'adresse
-         -> mettre dans le même fichier de configuration python
-5. Ajout au CSV
-   1. vérifier que fonctionne tout bien
-   2. --- ajout des metadata? ---
-6. API d'acces depuis le CSV
-   1. load the CSV
-   2. retrieve: which parameters?
-   3. ajouter les fonctions pour print, et faire avec plotly et non matplotlib
-7. tests de l'API avec un CSV généré propre et petit? (checker quelle lib de test?)
-8. Define the entry points for the different algorithms to use (Dockerise & make the entrypoints functions)
-   1. Find and define all the needed entrypoints, parameters etc
-   2. Make them
-   3. Dockerise that
-9. Nouveaux visuels Miro pour documenter le fonctionnement de tout ça proprement, avec les différents niveaux des BDD et fichiers générés
+## Code structure
 
+The code is split between different logical parts. For now, only the database exploration and analysis is available here. Soon, there will be a new subjects like metrics, agregation, or ROS playback added to this repository.
 
-### code cleaning
-- passer tous les thresholds dans un objet crossing_analysis_parameter
-- corriger orthographe threshold
-- modularize -> non pas vraiment possible avec streymread TODO: ask Rahul if that's possible?
-- document everything
-- clean comments and verbose logging
-- checker pour utiliser un formattage de documentation à la Google
+## How to use this code
+
+This section is temporary as this will change when the conteneurisationthrough docker will be completed.
+
+### Launch a database analysis
+
+This is done with the content of the notebook *database_exploration/analyse_and_create_db.ipynb*.
+
+To perform the analysis, create a JSON configuration file, as described in the function *explore_and_analyse_bdd*
+
+Then, pass this configuration file as an argument of the *config_path_full* variable at the bottom of the notebook.
+
+Finally, perform the analysis by launching the notebook.
+
+**NOTE:** The folder *database_exploration/results_permanent* has some file exploration CSVs ready, like the full exploration of CIRCLES' database.
+
+### Serve preprocessed files for events
+
+Use, in *database_exploration/events_api.ipynb* the class **FileServer()** to serve files using the **next()** method.
+
+You will have to define the base CSV for the analysis used (check the name for informations about the different parameters used), as well as the preprocessing behavior of the File Server (namely, select the time before and after the event that you wish to keep).
+
