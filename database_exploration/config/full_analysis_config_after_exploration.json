@@ -1,0 +1,18 @@
+{
+  "verbose": true,
+  "exploration":
+    {
+        "use_previous_exploration": "./results_permanent/file_exploration&full_exploration_publishable_circles&create_on=2021-12-01_06:10:16.920970&root=_iplant_home_sprinkjm_publishable-circles.csv"
+    },
+  "analysis":
+    {
+      "db_analysis_name": "full_analysis_car_crossings",
+      "car_crossing_parameters":
+        {
+          "enable": true,
+          "speed_threshold": 20,
+          "previous_distance_threshold": 22,
+          "next_distance_threshold": 20
+        }
+    }
+}
