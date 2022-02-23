@@ -1,0 +1,45 @@
+# https://docs.docker.com/compose/compose-file/compose-file-v3/#volume-configuration-reference
+# 1. compose to create a volume
+# 2. launch the dockerfile at the same time to expose the event API
+
+# simple docker compose for flask
+services: 
+  event_server: 
+    build: server_app
+    ports: 
+      - '8212'
+
+
+# next
+# - succeed to serve the server though docker compose
+# - mount a volume
+# - put the CSV data inside
+
+
+# ports and binding: https://docs.docker.com/compose/networking/
+# pq netstat marche pas?
+
+# build:
+#   context: .
+#   dockerfile: Dockerfile-event-api
+#   network: host
+#   container_name: event-api # doesn't seem to be the best to use???
+#   volumes:
+#     -   type: volume
+#         source: event_volume
+#         target: /events_csv
+#   # command: like in dockerfile, command to run when the container is up
+#   #deploy:
+#   #  replicas: ...
+#   #  restart_policy: ...
+
+# # check for networks, host bind etc to expose the application
+# volumes:
+#   event_volume:
+
+
+
+
+
+
+

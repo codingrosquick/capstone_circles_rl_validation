@@ -1,3 +1,47 @@
+# New notes dockerisation python exploration db
+
+- use requirements.txt to give packages to install:  pip3 freeze >> requirements.txt (freezes current requirements)
+- 
+
+
+
+## TODO
+1. check how to handle retrieval of CSV -> do this
+    seems good with the use of volumes -> share data + persistent
+    try with just the files inside?
+2. build an API for event serving -- with Flask, should be quick?
+3. build an API for event searching -- taking a config.JSON then running the python script
+    nb: check for log handling of this?
+4. small webpage to have things
+    define the endpoints
+5. check how to publish this on CyVerse?
+
+
+
+
+
+https://github.com/docker/awesome-compose/tree/master/django
+
+notes:
+https://www.curiousm.com/labs/2020/10/08/resolving-bind-address-already-in-use-when-starting-a-docker-instance/
+useful for killing processes by PID
+
+
+remove all images:
+    docker rmi -f $(docker images -aq)
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Notes on how to dockerise an application
 
 - for python, use this tutorial:
