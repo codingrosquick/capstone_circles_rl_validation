@@ -135,3 +135,6 @@ database_exploration/temp_cache
 database_exploration/results
 database_exploration/.ipynb_checkpoints
 dockerisation_python_notes.md
+
+# Node server
+server/node_modules/
