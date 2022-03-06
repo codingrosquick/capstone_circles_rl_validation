@@ -14,17 +14,19 @@ LINKS:
         call from JS ? ok
         getting stdout ? ok
         getting stderr ? ok
-        how to send param ? ? 
 
-- use a route for creating file explorations
-- define the different routes - to use later on -
+---------- All for TODAY ----------
 
--------- All for TODAY
+        how to send param to python 
 
+- define the different routes -> just dummy messages back
 - Create asynchronous node.js workers -> check how to create, get end, and get created files back
-- Handle project files architecture
+- use a route for creating file explorations and database exploration -> test the asynchronous workers & python calls
+
+---------- do soon? ----------
+
+- See again for handling better the project files architecture
+
 - See how to handle bagfile transformation / cut file
 - See for communication with a container from python -> Curl commands?
-
-Later on:
-- define start script, test scripts, and link to dockerfile entrypoint commands
+- Links of the scripts to the Dockerfile building the server
