@@ -534,9 +534,9 @@ def Long_lead_vehicle_dectect(lead_dis, theta):
         ax1.plot(lead_dis[:, 0], lead_dis[:, 1], color='blue', label = 'Lead_distance', linewidth=1)
         ax2.plot(lead_dis[:, 0], theta[:, 1], color='blueviolet', label = 'steering angle', linewidth=1, linestyle = '--')
 
-        ax1.set_xlabel('Time')  # 设置x轴标题
-        ax1.set_ylabel('Lead distance')  # 设置Y1轴标题
-        ax2.set_ylabel('Steering angle')  # 设置Y2轴标题
+        ax1.set_xlabel('Time') 
+        ax1.set_ylabel('Lead distance')  
+        ax2.set_ylabel('Steering angle')  
 
         ax1.legend(loc = 'upper left')
         ax2.legend(loc = 'upper right')
@@ -607,12 +607,12 @@ def turn_dectect(theta):
         ### plot
 
 
-        fig, ax1 = plt.subplots(figsize=[15, 4])  # 定义figure，（1）中的1是什么
+        fig, ax1 = plt.subplots(figsize=[15, 4])  
 
         ax1.plot(theta[:, 0], theta[:, 1], color='darkorchid', label='Steering angle', linewidth=1, linestyle='dotted')
 
-        ax1.set_xlabel('Time (s)')  # 设置x轴标题
-        ax1.set_ylabel('Steering angle (degree)')  # 设置Y1轴标题
+        ax1.set_xlabel('Time (s)') 
+        ax1.set_ylabel('Steering angle (degree)')  
 
         ax1.legend(loc='upper right')
         name = 'Turns'
@@ -694,18 +694,18 @@ def accel_intensity(data):
                 print('#' * 120)
 
         name = 'Acceleration intensity'
-        fig, ax = plt.subplots(figsize=[15, 4])  # 定义figure，（1）中的1是什么
+        fig, ax = plt.subplots(figsize=[15, 4])  
         ax2 = ax.twinx()
 
         ax.plot(accel[:, 0], accel[:, 1], color='cyan', label='Accel', linewidth=1, linestyle='--')
         ax2.plot(accel[:, 0], mark[:, 1], color='red', label='Obvious acceleration', linewidth=1, linestyle='dotted')
-        ax2.set_ylabel('Obvious acceleration')  # 设置Y2轴标题
+        ax2.set_ylabel('Obvious acceleration') 
         ax.legend(loc='upper left')
         ax2.legend(loc='upper right')
 
 
-        ax.set_xlabel('Time (s)')  # 设置x轴标题
-        ax.set_ylabel('Acceleration')  # 设置Y1轴标题
+        ax.set_xlabel('Time (s)') 
+        ax.set_ylabel('Acceleration')  
 
         name = 'Acceleration intensity'
         num_accel = i + 1
@@ -789,18 +789,18 @@ def de_accel_intensity(data):
                 print('#' * 120)
 
         name = 'De-Acceleration intensity'
-        fig, ax = plt.subplots(figsize=[15, 4])  # 定义figure，（1）中的1是什么
+        fig, ax = plt.subplots(figsize=[15, 4]) 
         ax2 = ax.twinx()
 
         ax.plot(accel[:, 0], accel[:, 1], color='cyan', label='De-Accel', linewidth=1, linestyle='--')
         ax2.plot(accel[:, 0], mark[:, 1], color='darkred', label='Obvious de-acceleration', linewidth=1, linestyle='dotted')
-        ax2.set_ylabel('Obvious de-acceleration')  # 设置Y2轴标题
+        ax2.set_ylabel('Obvious de-acceleration')  
         ax.legend(loc='upper left')
         ax2.legend(loc='upper right')
 
 
-        ax.set_xlabel('Time (s)')  # 设置x轴标题
-        ax.set_ylabel('De-Acceleration')  # 设置Y1轴标题
+        ax.set_xlabel('Time (s)') 
+        ax.set_ylabel('De-Acceleration')  
 
         name = 'De-Acceleration intensity'
         num_accel = i + 1
