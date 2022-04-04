@@ -10,23 +10,80 @@ TESTING
 - Call Python command from Node server
 LINKS:
     - https://medium.com/swlh/run-python-script-from-node-js-and-send-data-to-browser-15677fcf199f
-
         call from JS ? ok
         getting stdout ? ok
         getting stderr ? ok
+        how to send param to python? ok
+        write the full call to python scripts methods -> new service? ok
 
----------- All for TODAY ----------
+------------------------------------
 
-        how to send param to python 
+Implement file exploration on server:
+    - make call ipynb service (like python!) + psb to send parameters
+        LINK: https://nbconvert.readthedocs.io/en/latest/execute_api.html
+        => run: jupyter nbconvert --to notebook --execute mynotebook.ipynb
+        -> writes a new file with the notebook executed!:
+            EXAMPLE: [NbConvertApp] Writing 7437408 bytes to fileshare_exploration_create_db.nbconvert.ipynb
+        => Issues with strym -> check how to do this from the analysis
 
-- define the different routes -> just dummy messages back
-- Create asynchronous node.js workers -> check how to create, get end, and get created files back
-- use a route for creating file explorations and database exploration -> test the asynchronous workers & python calls
+        ALSO: is there a need to delete the newly created jupyter notebook?
 
----------- do soon? ----------
+    - send parameters
+    - remove the created new ipynbn at the end (async to handle?)
 
-- See again for handling better the project files architecture
+    - adapt the ipynb and call function to perform the file analysis
+    - add the routes and names to make it launchable
+
+    - test on a small subset of the available files
+
+------------------------------------
+
+DB exploration:
+    think about what to do to fetch the CSV for all files
+    same for file retrieval for other parts -> needs to locally download the CSV
+    use in the database exploration service
+    adapt and add the python script to the server
+    
+CODE ORGA
+    IMPORTANT - after this -> reorganize the python scripts to have collocated base functionalities (caching, download irods, ...)
+    USE global variables definitions!
+
+Adding the simulation
+    Dockerfile building on top of Jessica's
+    CLI service generic (basic orga if needed)
+    extend to call jessica's service
+
+------------------------------------
 
 - See how to handle bagfile transformation / cut file
-- See for communication with a container from python -> Curl commands?
-- Links of the scripts to the Dockerfile building the server
+- define the different routes -> just dummy messages back
+- use a route for creating file explorations and database exploration -> test the asynchronous workers & python calls
+
+- Dockerfile building on top of Jessica's
+- Methods to call Jessica's scripts from the CLI
+- Create asynchronous node.js workers/processes -> check how to create, get end, and get created files back
+
+- Integrate Dantong's part: put in a working py script, then add with routes, arguments etc
+
+
+
+
+------------------------------------- ------------------------------------- -------------------------------------
+
+     BIG QUESTION -> switch everything to flask/python? -> could be way more simple to handle the full thing
+
+     -> async between python and node is a pain
+     -> needs to call python scripts make things much more complicated...
+     -> very simple server for this specific custom matter could be easier in Flask
+
+    ASK TO CIRCLES
+    
+    -> is Python main language for everyone (so that chance of being passed on, maintained and reused after our project)
+    -> ask for Jessica as well
+
+    FIND ON MY OWN
+    
+    -> Flask/Python distro for handling web servers?
+
+------------------------------------- ------------------------------------- -------------------------------------
+

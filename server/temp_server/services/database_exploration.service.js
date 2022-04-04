@@ -1,25 +1,42 @@
-const {spawn} = require('child_process');
+const {runPyScript, runJupyterNotebook} = require('./run_py_script');
 
-exports.getTestData = function (query, opt1) {
 
+const callFileExploration = (query, opt1) => {
+    try {
+        /*
+        // ADD THE FILE EXPLORATION SCRIPT OVER HERE:
+        const scriptFileExploration = '';
+        
+        // KEEP PARAMETERS HERE AND BUBBLE UP THIS CALL WORKS:
+        const parameters = {
+        };
+        */
+        console.log('inside the service to call the notebook')
+
+        //const resPy = runPyScript(scriptFileExploration, parameters);
+        const jup = runJupyterNotebook('fileshare_exploration_create_db');
+        // TODO: is there a need to delete this newly created jupyter notebook?
+        return jup;
+        
+    } catch (e) {
+        throw Error('Error while calling file exploration')
+    }
+};
+
+
+const getTestData = (query, opt1) => {
     try {
         // var testData = `This is a test sample, ${opt1}`
-        var dataToSend;
+        var dataToSendAndReceive = 'tinkie winkie';
+        
         // TODO change towards relative paths -> why relative not recognized??
-        const python = spawn('python3', ['/Users/noecarras/Documents/03_Berkeley_EECS/cours/Capstone_RL_validation/capstone_circles_rl_validation/server/temp_server/python_scripts/test_python_script.py']);
-        python.stderr.on('data', (data) => { console.log(`Error while fetching python script.\nFailed on: ${data}`) });
-        python.stdout.on('data', (data) => {
-            console.log('Pipe data from python script ...');
-            dataToSend = data.toString();
-        });
-        python.on('close', (code) => {
-            console.log(`child process close all stdio with code ${code}`);
-            console.log(`data to send is ${dataToSend}`);
-            // send data to the controller
-            return dataToSend;
-        });
+        const scriptName = 'test_python_script';
+        const resPy = runPyScript(scriptName, dataToSendAndReceive);
+        
     } catch (e) {
         // Log Errors
-        throw Error('Error while fetching testData')
+        throw Error('Error while calling python script from outside (TESTING PHASE)')
     }
-}
+};
+
+exports.callFileExploration = callFileExploration;
