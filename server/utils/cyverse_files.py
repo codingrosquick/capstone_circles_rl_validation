@@ -42,6 +42,36 @@ async def iget(file_adress, destination, verbose: bool = False):
                         f'\n\tFailing on {e}')
 
 
+async def iput(remote_folder_path, local_file_path, is_folder=False, verbose: bool = False):
+    '''
+    wrapper for iRODS iput command
+    async command using asyncio library
+    :param local_file_path: local address of the file|folder to upload
+    :param remote_folder_path: remote address on CyVerse of the folder in which to put the file
+    :return: remote address of the uploaded file
+    '''
+    try:
+        if is_folder:
+            folder_add = ''
+        else:
+            folder_add = '-r '
+
+        name = local_file_path.split['/'][-1]
+        if (remote_folder_path[-1] == '/') or (remote_folder_path[-1] == '\\'):
+            remote_object_name = remote_folder_path + name
+        else: 
+            remote_object_name = remote_folder_path + '/' + name
+
+        await async_command_shell(f'iput {folder_add}{local_file_path} {remote_object_name}', verbose=verbose)
+        
+        return remote_object_name
+    except Exception as e:
+        raise Exception(f'Error while uploading file at:'
+                        f'\n\tremote: {remote_object_name}'
+                        f'\n\tfrom local address: {local_file_path}`'
+                        f'\n\tFailing on {e}')
+
+
 def ils():
     '''
     wrapper for iRODS ils command

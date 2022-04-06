@@ -5,9 +5,16 @@ TODOLIST -> SERVER FLASK
     0 - SETUP SIMPLE SERVER
 
 ######### - Installation
-- Add routes template to call python scripts
+######### - Add routes template to call python scripts
 -> start with the file exploration functionnalities
-- afterwards, extends this into routes (the index file), controllers and services
+    - take arguments from POST request with Flask
+    - init local cache at the end of creation
+    
+    - find a way to handle the async issue ??? resolve the installation issue
+
+    - afterwards, extends this into routes (the index file), controllers and services
+    - add possibility to delete such runs (careful)
+
 
 - Add the common utilities for DL, exploration,
     Caching (several places and cleans for those), add some logging
@@ -44,3 +51,13 @@ TODOLIST -> SERVER FLASK
 - Looping over the whole process
 
 - Think about how to make it more flexible and customizable
+
+
+
+
+
+
+NB: ITERATOR files
+- see with jonathan -> make sth like a python package available on pip
+- clean the file handler class to use in this package
+

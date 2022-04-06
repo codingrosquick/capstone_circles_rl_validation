@@ -70,3 +70,7 @@ Depth: doc overview: https://flask.palletsprojects.com/en/2.1.x/
 OTHERS
 
 - python packages: https://stackoverflow.com/questions/1944569/how-do-i-write-good-correct-package-init-py-files/1947834#1947834
+
+- async flask: https://testdriven.io/blog/flask-async/
+-> lots of info + installation informations
+
