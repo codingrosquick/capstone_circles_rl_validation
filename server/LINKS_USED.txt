@@ -1,0 +1,72 @@
+
+    Flask start project
+
+https://flask.palletsprojects.com/en/2.1.x/installation/
+creation of project
+$ (in the server folder)
+python3 -m venv venv
+. venv/bin/activate
+pip install Flask
+$
+
+QUICKSTART
+https://flask.palletsprojects.com/en/2.1.x/quickstart/
+
+- base entrypoint
+- launch the server:
+$
+export FLASK_APP=index (name of the entrypoint)
+flask run
+export FLASK_ENV=development    (gives the dev features)
+$
+- basic for routing
+- protecting incoming Markup:
+$
+from markupsafe import escape
+then later on, use: escape(input) instead of input
+$
+- special uses for routing:
+$
+@app.route('/user/<username>')
+def show_user_profile(username):
+    # show the user profile for that user
+    return f'User {escape(username)}'
+
+@app.route('/post/<int:post_id>')
+def show_post(post_id):
+    # show the post with the given id, the id is an integer
+    return f'Post {post_id}'
+
+@app.route('/path/<path:subpath>')
+def show_subpath(subpath):
+    # show the subpath after /path/
+    return f'Subpath {escape(subpath)}'
+$
+
+===== part for: Accessing Request Data -> LOTS of interesting stuff over here
+
+- request object 
+- how to treat incoming request http
+- uploading files & secure naming
+- cookies
+- redirects, errors with abort(CODE), errorhandlers
+- responses
+- API and JSON
+- logging with logger!
+
+
+
+
+
+
+
+Depth: doc overview: https://flask.palletsprojects.com/en/2.1.x/
+
+
+
+
+
+
+OTHERS
+
+- python packages: https://stackoverflow.com/questions/1944569/how-do-i-write-good-correct-package-init-py-files/1947834#1947834

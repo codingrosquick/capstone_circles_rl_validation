@@ -1,0 +1,46 @@
+
+TODOLIST -> SERVER FLASK
+
+
+    0 - SETUP SIMPLE SERVER
+
+######### - Installation
+- Add routes template to call python scripts
+-> start with the file exploration functionnalities
+- afterwards, extends this into routes (the index file), controllers and services
+
+- Add the common utilities for DL, exploration,
+    Caching (several places and cleans for those), add some logging
+    + files architecture 
+
+
+    1 - First functionnalities
+
+- Add the file explorer (turn into simple python script)
+- define all of the routes to build and put in a doc -> send to Jessica
+- Call ipynb from python? (for analysis of events)
+
+
+    2 - SETUP ADDITIONNAL TECH FEATURES
+
+- JWT
+- Async workers
+- Some unit / integration testing
+- Global Variables handling
+
+
+    3 - ADD CONTENT & Metrics
+
+- Metrics 1 file
+- Aggregated Metrics
+- More driving situations?
+
+
+    4 - DEPLOY & simulation
+
+- Docker image
+- Call to launch the simulation (Jessica)
+
+- Looping over the whole process
+
+- Think about how to make it more flexible and customizable
