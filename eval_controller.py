@@ -208,8 +208,9 @@ def Var_lead(lead_dis, allowed_control):
     # clip the allowed_control
     t_allowed_c = np.where(allowed_control == True)[0]
     total_interval, _ = allowed_control.shape
+    total_time = lead_dis[-1, 0] - lead_dis[0, 0]
     clips = []
-
+    time_control = 0
     start_curr = t_allowed_c[0]
     for i in np.arange(0, len(t_allowed_c) - 1, 1):
         if t_allowed_c[i + 1] - t_allowed_c[i] == 1 and i != len(t_allowed_c) - 2:
@@ -217,7 +218,7 @@ def Var_lead(lead_dis, allowed_control):
         else:
             stop_curr = t_allowed_c[i]
             time_period_ = [allowed_control[start_curr, 0], allowed_control[stop_curr, 0]]
-
+            time_control = time_control + time_period_[1] - time_period_[0]
             clips.append(time_period_)
             start_curr = t_allowed_c[i + 1]
 
@@ -250,7 +251,7 @@ def Var_lead(lead_dis, allowed_control):
     var_total = np.var(lead_dis[:, 1])
 
 
-    U_lead = var_control / var_total
+    U_lead = var_control / var_total / time_control * (total_time - time_control)
 
     fig = plt.figure(figsize=[15, 10])
     ax_cof = HostAxes(fig, [0.1, 0.1, 0.7, 0.8])
@@ -318,7 +319,7 @@ def S_SG(vel, allowed_control,
     t_allowed_c = np.where(allowed_control == True)[0]
     total_interval, _ = allowed_control.shape
     clips = []
-
+    time_control = 0
     start_curr = t_allowed_c[0]
     for i in np.arange(0, len(t_allowed_c) - 1, 1):
         if t_allowed_c[i + 1] - t_allowed_c[i] == 1 and i != len(t_allowed_c) - 2:
@@ -326,11 +327,11 @@ def S_SG(vel, allowed_control,
         else:
             stop_curr = t_allowed_c[i]
             time_period_ = [allowed_control[start_curr, 0], allowed_control[stop_curr, 0]]
-
+            time_control = time_control + time_period_[1] - time_period_[0]
             clips.append(time_period_)
             start_curr = t_allowed_c[i + 1]
 
-    # Align their length
+    # Align their length [clips_index -> allowed control]
     allowed_control_ = np.zeros(vel.shape, dtype=int)
     allowed_control_[:, 0] = vel[:, 0]
     clips_indexs = []
@@ -349,26 +350,24 @@ def S_SG(vel, allowed_control,
 
     # find the stops and goes
     t_sg = np.where(vel[:, 1] <= sg_velocity_thresh)[0]
-    ### clip the lead distance
     total_time = vel[-1, 0] - vel[0, 0]
     total_interval, _ = vel.shape
     clips = []
-    time_period = []
-    start_curr = t_sg[0]
-    time_control = 0
-    for i in np.arange(0, len(t_sg) - 1, 1):
-        if t_sg[i + 1] - t_sg[i] == 1 and i != len(t_sg) - 2:
-            continue
-        else:
-            stop_curr = t_sg[i]
-            time_period_ = (stop_curr - start_curr) / total_interval * total_time
-            time_period.append(time_period_)
-            time_control = time_period_ + time_control
-            clips.append([start_curr, stop_curr])
-            start_curr = t_sg[i + 1]
 
-        ### filter the lead_distance clips
-        clips_filter = []
+    if t_sg != []:
+        start_curr = t_sg[0]
+        for i in np.arange(0, len(t_sg) - 1, 1):
+            if t_sg[i + 1] - t_sg[i] == 1 and i != len(t_sg) - 2:
+                continue
+            else:
+                stop_curr = t_sg[i]
+                time_period_ = (stop_curr - start_curr) / total_interval * total_time
+                clips.append([start_curr, stop_curr])
+                start_curr = t_sg[i + 1]
+
+    ### filter the lead_distance clips [clips_filter -> stops and goes]
+    clips_filter = []
+    if clips != []:
         for list in clips:
             point1 = list[0]
             point2 = list[1]
@@ -379,8 +378,9 @@ def S_SG(vel, allowed_control,
     stop_go = np.zeros(vel.shape, dtype=int)
     stop_go[:, 0] = vel[:, 0]
     clips_indexs = []
-    for clip_filter in clips_filter:
-        stop_go[clip_filter[0] : clip_filter[1], 1] = 1
+    if clips_filter != []:
+        for clip_filter in clips_filter:
+            stop_go[clip_filter[0] : clip_filter[1], 1] = 1
 
 
 
@@ -395,7 +395,10 @@ def S_SG(vel, allowed_control,
                 n_control = n_control + 1
 
     SG = n_control / time_control
-    S_SG = SG / SG_p
+    if SG_p == 0:
+        S_SG = 0
+    else:
+        S_SG = SG / SG_p
 
     fig = plt.figure(figsize=[15, 10])
     ax_cof = HostAxes(fig, [0.1, 0.1, 0.7, 0.8])
@@ -419,7 +422,7 @@ def S_SG(vel, allowed_control,
     # set label for axis
     ax_cof.set_ylabel('velocity (m/s)')
     ax_cof.set_xlabel('Time (s)')
-    ax_temp.set_ylabel('allowed_controll')
+    ax_temp.set_ylabel('allowed_control')
 
     ax_cp.set_ylabel('stop and go')
 
@@ -485,10 +488,11 @@ def Var_vel(vel, allowed_control):
     print('*' * 120)
     print('Velocity stability within the control assessment begins !')
     # clip the allowed_control
+    total_time = vel[-1, 0] - vel[0, 0]
     t_allowed_c = np.where(allowed_control == True)[0]
     total_interval, _ = allowed_control.shape
     clips = []
-
+    time_control = 0
     start_curr = t_allowed_c[0]
     for i in np.arange(0, len(t_allowed_c) - 1, 1):
         if t_allowed_c[i + 1] - t_allowed_c[i] == 1 and i != len(t_allowed_c) - 2:
@@ -496,7 +500,7 @@ def Var_vel(vel, allowed_control):
         else:
             stop_curr = t_allowed_c[i]
             time_period_ = [allowed_control[start_curr, 0], allowed_control[stop_curr, 0]]
-
+            time_control = time_control + time_period_[1] - time_period_[0]
             clips.append(time_period_)
             start_curr = t_allowed_c[i + 1]
 
@@ -529,7 +533,7 @@ def Var_vel(vel, allowed_control):
     var_total = np.var(vel[:, 1])
 
 
-    S_vel = var_control / var_total
+    S_vel = var_control / var_total / time_control * (total_time - time_control)
 
     fig = plt.figure(figsize=[15, 10])
     ax_cof = HostAxes(fig, [0.1, 0.1, 0.7, 0.8])
@@ -591,11 +595,12 @@ def Var_vel(vel, allowed_control):
 def Var_accel(accel, allowed_control):
     print('*' * 120)
     print('Acceleration stability within the control assessment begins !')
+    total_time = accel[-1, 0] - accel[0, 0]
     # clip the allowed_control
     t_allowed_c = np.where(allowed_control == True)[0]
     total_interval, _ = allowed_control.shape
     clips = []
-
+    time_control = 0
     start_curr = t_allowed_c[0]
     for i in np.arange(0, len(t_allowed_c) - 1, 1):
         if t_allowed_c[i + 1] - t_allowed_c[i] == 1 and i != len(t_allowed_c) - 2:
@@ -603,7 +608,7 @@ def Var_accel(accel, allowed_control):
         else:
             stop_curr = t_allowed_c[i]
             time_period_ = [allowed_control[start_curr, 0], allowed_control[stop_curr, 0]]
-
+            time_control = time_control + time_period_[1] - time_period_[0]
             clips.append(time_period_)
             start_curr = t_allowed_c[i + 1]
 
@@ -636,7 +641,7 @@ def Var_accel(accel, allowed_control):
     var_total = np.var(accel[:, 1])
 
 
-    S_accel = var_control / var_total
+    S_accel = var_control / var_total / time_control * (total_time - time_control)
 
     fig = plt.figure(figsize=[15, 10])
     ax_cof = HostAxes(fig, [0.1, 0.1, 0.7, 0.8])
@@ -725,8 +730,8 @@ def main():
     ## read the bagfile
     # the original bagfile from the real-world driving
     # the simulation bagfile from the ROS
-    simulation_bagfile_path = '../bagfile/0802/2021_08_02_13_33_16_2T3H1RFV8LC057037following_real_vehicle_rl0719_enable_true_copy.bag'
-    print('Read imulation bagfile from: ' + simulation_bagfile_path)
+    simulation_bagfile_path = '../bagfile/0802/2021_08_02_16_39_50_2T3H1RFV8LC057037following_real_vehicle_rl0719_enable_true.bag'
+    print('Read simulation bagfile from: ' + simulation_bagfile_path)
     topics_num_s,topics_name_s, bag_s = read_bagfiles_and_topics(simulation_bagfile_path)
 
     # 0                                /accel  ...    205.281128
