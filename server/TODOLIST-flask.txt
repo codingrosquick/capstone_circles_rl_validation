@@ -7,13 +7,20 @@ TODOLIST -> SERVER FLASK
 ######### - Installation
 ######### - Add routes template to call python scripts
 -> start with the file exploration functionnalities
-    - take arguments from POST request with Flask
-    - init local cache at the end of creation
-    
-    - find a way to handle the async issue ??? resolve the installation issue
+    ####### - take arguments from POST request with Flask
+    ####### - find a way to handle the async issue ??? resolve the installation issue
 
+    - redo the gitignore!
+    - place all of this in a new github repository!
+    
+    - debug iput command!
+    
+    - init local cache at the end of creation
     - afterwards, extends this into routes (the index file), controllers and services
     - add possibility to delete such runs (careful)
+
+===================== TONIGHT =====================
+
 
 
 - Add the common utilities for DL, exploration,
@@ -31,7 +38,8 @@ TODOLIST -> SERVER FLASK
     2 - SETUP ADDITIONNAL TECH FEATURES
 
 - JWT
-- Async workers
+- ###DONE### Async workers
+    - separate async workers out of the loop?
 - Some unit / integration testing
 - Global Variables handling
 
@@ -58,6 +66,15 @@ TODOLIST -> SERVER FLASK
 
 
 NB: ITERATOR files
-- see with jonathan -> make sth like a python package available on pip
+- see with jonathan -> make sth like a python package available on pip! YES
 - clean the file handler class to use in this package
+- also allow to filter on the root for the analysis
+- add examples of usage
+- allow for searching libpanda, dashcam, or bagfiles (let the user select) (test for directories)
+
+
+
+Some idea from meeting: https://docs.google.com/presentation/d/1FDeIyACGD39hI5YSNGGzlR1x5bKUus1rT0kJQhyN810/edit#slide=id.g12405f45964_0_10
+(cf last slide)
+
 

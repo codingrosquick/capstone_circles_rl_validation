@@ -1,3 +1,4 @@
+import asyncio
 import subprocess
 
 
@@ -5,8 +6,22 @@ async def async_command_shell(command, verbose: bool = False):
     """Run command in subprocess (shell).
     source: https://fredrikaverpil.github.io/2017/06/20/async-and-await-with-subprocesses/
     """
+    # set new event loop
+    #old_loop = asyncio.get_event_loop()
+    #loop = asyncio.new_event_loop()
+    #asyncio.set_event_loop(loop)
     # Create subprocess
-    process = await asyncio.create_subprocess_shell(command, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+    # process = await asyncio.create_subprocess_shell(command, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE, loop=loop)
+    print('\n\ncommand', command, '\n\n')
+
+    # NOTE: switched to use subprocess_exec as it is only for 1 command. Creating a shell doesn't seem to be fully supported and is overkill for here
+    process = await asyncio.create_subprocess_exec(command, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+    
+
+    # close the loop
+    #loop.close()
+    #asyncio.set_event_loop(old_loop)
+
     # Status
     if verbose:
         print("Started:", command, "(pid = " + str(process.pid) + ")", flush=True)
@@ -42,6 +57,13 @@ async def iget(file_adress, destination, verbose: bool = False):
                         f'\n\tFailing on {e}')
 
 
+def get_remote_object_name(remote_folder_path, name):
+    if (remote_folder_path[-1] == '/') or (remote_folder_path[-1] == '\\'):
+        return remote_folder_path + name
+    else: 
+        return remote_folder_path + '/' + name
+
+
 async def iput(remote_folder_path, local_file_path, is_folder=False, verbose: bool = False):
     '''
     wrapper for iRODS iput command
@@ -55,20 +77,20 @@ async def iput(remote_folder_path, local_file_path, is_folder=False, verbose: bo
             folder_add = ''
         else:
             folder_add = '-r '
+        name = local_file_path.split('/')[-1]
+        remote_object_name = get_remote_object_name(remote_folder_path, name)
 
-        name = local_file_path.split['/'][-1]
-        if (remote_folder_path[-1] == '/') or (remote_folder_path[-1] == '\\'):
-            remote_object_name = remote_folder_path + name
-        else: 
-            remote_object_name = remote_folder_path + '/' + name
+        print('\n\n', folder_add, '\n\n')
+        print('\n\n', local_file_path, '\n\n')
+        print('\n\n', remote_object_name, '\n\n')
 
-        await async_command_shell(f'iput {folder_add}{local_file_path} {remote_object_name}', verbose=verbose)
+        await async_command_shell(f'iput {folder_add}{local_file_path} {remote_folder_path}', verbose=verbose)
         
         return remote_object_name
     except Exception as e:
         raise Exception(f'Error while uploading file at:'
-                        f'\n\tremote: {remote_object_name}'
-                        f'\n\tfrom local address: {local_file_path}`'
+                        f'\n\tremote folder: {remote_folder_path}'
+                        f'\n\tfrom local address: {local_file_path}'
                         f'\n\tFailing on {e}')
 
 
@@ -111,7 +133,7 @@ def ipwd():
     return out
 
 
-def findall_files(root, verbose: bool = False):
+async def findall_files(root, verbose: bool = False):
     '''
     finds all files within the root directory and recursively below
     :param root: str, root file from which to begin the search
@@ -122,9 +144,11 @@ def findall_files(root, verbose: bool = False):
     files = []
 
     while len(dir_queue) != 0:
+
         current_dir = dir_queue.pop()
         icd(current_dir)
         queue = ils()
+
         if verbose:
             print('---------')
             print('current queue dir: ', dir_queue)
@@ -150,5 +174,3 @@ def findall_files(root, verbose: bool = False):
             print('found ', len(files), ' files')
 
     return files
-
-

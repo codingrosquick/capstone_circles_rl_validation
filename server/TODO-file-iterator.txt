@@ -1,0 +1,27 @@
+FILE ITERATOR
+
+Form it will take:
+- Python Package (on PiP or just .wheel)
+
+Available features
+- IRODS’ basic commands wrapper + documentation (cd, pwd, ls, get, put)
+- Wrapper IRODS for setting up everything on the FileSystem
+    (Folder .irods → authentication through the file system ⇒ script to set this up automatically on the file system)
+- Small cache handling
+- Define the paths etc in global variables
+- Documentation
+- FileHandler class:
+    - Downloads and stores in cache files 1 by 1
+    - Calling .next() clears cache and downloads next file
+    - Able to create new file explorations on CyVerse (i.e. finding new files), or use predefined file explorations (all files, or small testing subset)
+    - Able to filter on these exploration before retrieving the files 1 by 1
+- Advanced features for the file handler class:
+    - Being able to cut the file around the event
+    - Convert to bagfile
+    - Have methods around the next that can be set: processing_after_download() (just after the download), processing_before_next() (before the cache is cleared)
+    - let the user select if he wants libpanda, dashcam, or the other type of folder available
+    
+Timeline
+- Done for next week
+- advanced features asap
+

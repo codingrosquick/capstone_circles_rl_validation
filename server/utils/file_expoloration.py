@@ -1,4 +1,6 @@
+from asyncio import subprocess
 from datetime import datetime
+from threading import local
 from typing import List
 from utils.cyverse_files import findall_files, iput
 import pandas as pd
@@ -40,7 +42,12 @@ def can_gps_coupling(files: List[any]):
 
 
 def coupled_files_file_namer(name: str, root: str):
-    return f'file_exploration&{name}&create_on={str(datetime.now()).replace(" ", "_")}&root={root.replace("/", "_")}.csv'
+    root_mod = root.replace("/", "_").replace("'", "")
+    if root_mod[-4:] == '.csv':
+        root_mod = root_mod[:-4]
+    name_mod = name.replace("'", "")
+
+    return f'file_exploration&{name_mod}&create_on={str(datetime.now()).replace(" ", "_")}&root={root_mod}.csv'
 
 
 async def create_fileshare_exploration(root: str, exploration_name: str, remote_exploration_folder: str, local_upload_folder_address: str, verbose: bool = False):
@@ -53,12 +60,19 @@ async def create_fileshare_exploration(root: str, exploration_name: str, remote_
     :return: the address of the newly created file on CyVerse
     '''
     # explores the folders to find CSV pairs of CAN & GPS files
-    all_files = findall_files(root, verbose)
+    all_files = await findall_files(root, verbose)
+
     coupled_files = can_gps_coupling(all_files)
 
     # save the csv file
     output_filename = coupled_files_file_namer(exploration_name, root)
     local_file_path = f'{local_upload_folder_address}/{output_filename}'
+    print(local_file_path)
+
+    # subprocess.run(['touch', local_file_path],
+    #                 stdout=subprocess.PIPE,
+    #                 stderr=subprocess.PIPE,
+    #                 universal_newlines=True)
 
     df = pd.DataFrame(data={'Files': coupled_files})
     df.to_csv(path_or_buf=local_file_path)

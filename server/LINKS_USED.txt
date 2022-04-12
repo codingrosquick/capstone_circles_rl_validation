@@ -63,14 +63,15 @@ $
 Depth: doc overview: https://flask.palletsprojects.com/en/2.1.x/
 
 
+- async flask: https://testdriven.io/blog/flask-async/
+-> lots of info + installation informations
+https://flask.palletsprojects.com/en/2.1.x/async-await/
+(bien vérifier avec pip freeze quels packages sont installés)
 
 
 
-
-OTHERS
 
 - python packages: https://stackoverflow.com/questions/1944569/how-do-i-write-good-correct-package-init-py-files/1947834#1947834
 
-- async flask: https://testdriven.io/blog/flask-async/
--> lots of info + installation informations
 
+- pip packages -> rechecker bien tout ça pour avoir tous les packages installés

@@ -1,4 +1,5 @@
-from flask import Flask
+from asyncio.log import logger
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -13,9 +14,9 @@ from flask import jsonify
 cyverse_path_file_explorations = '/iplant/home/noecarras/resources_server/file_exploration'
 cyverse_path_server_resources = '/iplant/home/noecarras/resources_server'
 
-local_temp_folder = '/server/temp_cache'
-local_long_cache_address = 'server/long_cache'
-
+local_temp_folder = '/Users/noecarras/Documents/03_Berkeley_EECS/cours/Capstone_RL_validation/capstone_circles_rl_validation/server/temp_cache'
+# TODO: change to work within Docker
+local_long_cache_address = '/Users/noecarras/Documents/03_Berkeley_EECS/cours/Capstone_RL_validation/capstone_circles_rl_validation/server/long_cache'
 
 
 ############################ DEFINING ROUTES ############################
@@ -41,15 +42,24 @@ def get_available_exploration():
 
 @app.route("/file_exploration/", methods=['POST'])
 async def create_exploration():
-    try:
-        # GET PARAMS FROM THE POST req
-        
-        exploration_name = 'test-small-exploration'
-        root = '/iplant/home/sprinkjm/publishable-circles/2T3W1RFVXKW033343/libpanda/'
+    '''
+    request arguments:
+        query params:
+            - 'name': name to give to the file exploration
+            - 'root': root folder on CyVerse
+    '''
+    try: 
+        #legacy to remove, test for arguments to pass       
+        #exploration_name = 'test-small-exploration'
+        #root = '/iplant/home/sprinkjm/publishable-circles/2T3W1RFVXKW033343/libpanda/2021_08_02'
+
+        arguments = request.args.to_dict()
+
+        logger.info(arguments)
 
         uploaded_file = await create_fileshare_exploration(
-            root,
-            exploration_name,
+            arguments['root'],
+            arguments['name'],
             remote_exploration_folder=cyverse_path_file_explorations,
             local_upload_folder_address=local_long_cache_address,
             verbose=True)
