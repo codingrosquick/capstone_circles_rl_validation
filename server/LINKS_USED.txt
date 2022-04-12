@@ -75,3 +75,6 @@ https://flask.palletsprojects.com/en/2.1.x/async-await/
 
 
 - pip packages -> rechecker bien tout ça pour avoir tous les packages installés
+
+- switch git origin repo: https://stackoverflow.com/questions/5181845/git-push-existing-repo-to-a-new-and-different-remote-repo-server
+
